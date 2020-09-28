@@ -3,7 +3,6 @@ package dev.pa1007.java2048bot;
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Scene;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -11,8 +10,8 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class App extends Application {
 
@@ -24,10 +23,10 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Bot");
 
-        cases = List.of(new Case(171,385), new Case(293,385), new Case(418,385), new Case(540,385),
-                        new Case(171,511), new Case(293,511), new Case(418,511), new Case(540,511),
-                        new Case(171,625), new Case(293,625), new Case(418,625), new Case(540,625),
-                        new Case(171,748), new Case(293,748), new Case(418,748), new Case(540,748)
+        cases = List.of(new Case(171, 385), new Case(293, 385), new Case(418, 385), new Case(540, 385),
+                        new Case(171, 511), new Case(293, 511), new Case(418, 511), new Case(540, 511),
+                        new Case(171, 625), new Case(293, 625), new Case(418, 625), new Case(540, 625),
+                        new Case(171, 748), new Case(293, 748), new Case(418, 748), new Case(540, 748)
         );
 
         WebView webView = new WebView();
@@ -38,9 +37,6 @@ public class App extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
-        //        Robot         robot         = new Robot();
-        //        WritableImage writableImage = new WritableImage(800, 800);
-        //        writableImage = robot.getScreenCapture(writableImage, new Rectangle2D(0, 0, 800, 800));
         primaryStage.getScene().setOnKeyPressed(keyEvent -> {
             switch (keyEvent.getCode()) {
                 case P:
@@ -53,10 +49,7 @@ public class App extends Application {
                     break;
                 case N:
                 case H:
-
-
-
-
+                    System.out.println(createGame());
                     break;
             }
         });
@@ -65,27 +58,33 @@ public class App extends Application {
 
     }
 
-    private String bot(int s, int s1) throws IOException {
+    public Game createGame() {
+        List<Case> sorted = new ArrayList<>();
+
+        for (Case aCase : cases) {
+            aCase.setType(bot(aCase));
+            sorted.add(aCase);
+        }
+        return new Game(sorted);
+    }
+
+    private Case.Type bot(int s, int s1) {
         BufferedImage bufferedImage = SwingFXUtils.fromFXImage(stage.getScene().snapshot(null), null);
+        int           p             = bufferedImage.getRGB(s, s1);
+        int           blue          = p & 0xff;
+        int           green         = (p & 0xff00) >> 8;
+        int           red           = (p & 0xff0000) >> 16;
+        return Case.getType(red, green, blue);
+    }
 
-        bufferedImage.setRGB(s, s1, Color.red.getRGB());
-        File output = new File("Test.png");
-        output.createNewFile();
-        ImageIO.write(bufferedImage, "png", output);
-        //        // get red
-        //        int r = (p>>16) & 0xff;
-        //
-        //        // get green
-        //        int g = (p>>8) & 0xff;
-        //
-        //        // get blue
-        //        int a = p & 0xff;
-
+    private Case.Type bot(Case c) {
+        return bot(c.getX(), c.getY());
     }
 
     private void takeStill() throws IOException {
         BufferedImage bufferedImage = SwingFXUtils.fromFXImage(stage.getScene().snapshot(null), null);
-        File          output        = new File("Test.png");
+        cases.forEach((c) -> bufferedImage.setRGB(c.getX(), c.getY(), Color.RED.getRGB()));
+        File output = new File("Test.png");
         output.createNewFile();
         ImageIO.write(bufferedImage, "png", output);
     }
