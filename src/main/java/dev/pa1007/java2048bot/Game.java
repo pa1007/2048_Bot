@@ -12,17 +12,22 @@ public class Game {
     }
 
     private String format(int val) {
-        if (val > 1000) {
-            return String.valueOf(val);
-        }
-        else if (val > 100) {
-            return " " + val;
-        }
-        else if (val > 10) {
-            return " " + val + " ";
+        if (val > -1) {
+            if (val > 1000) {
+                return String.valueOf(val);
+            }
+            else if (val > 100) {
+                return " " + val;
+            }
+            else if (val > 10) {
+                return " " + val + " ";
+            }
+            else {
+                return " 0" + val + " ";
+            }
         }
         else {
-            return " 0" + val + " ";
+            return " " + val + " ";
         }
     }
 

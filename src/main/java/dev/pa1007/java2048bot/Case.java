@@ -109,7 +109,7 @@ public class Case {
         THIRTY_TWO(new Color(246, 124, 95), 32),
         SIXTY_FOUR(new Color(246, 94, 59), 64),
         ONE_TWENTY_EIGHT(new Color(237, 207, 114), 128),
-        TWO_FIFTY_SIX(new Color(0, 237, 204), 256),
+        TWO_FIFTY_SIX(new Color(237, 204, 97), 256),
         FIVE_TWELVE(new Color(237, 200, 80), 512),
         HUNDRED_TWENTY_FOUR(new Color(237, 197, 63), 1024),
         TWO_FORTY_EIGHT(new Color(237, 194, 46), 2048),
