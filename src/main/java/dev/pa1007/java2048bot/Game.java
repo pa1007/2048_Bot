@@ -1,14 +1,26 @@
 package dev.pa1007.java2048bot;
 
+import dev.pa1007.java2048bot.ai.AI;
+import dev.pa1007.java2048bot.ai.BasicAI;
 import java.util.List;
 
 public class Game {
 
-    private List<Case> casesSortedAndTyped;
+    private final List<Case> casesSortedAndTyped;
 
+    private final AI ai;
 
     public Game(List<Case> casesSortedAndTyped) {
         this.casesSortedAndTyped = casesSortedAndTyped;
+        ai = new BasicAI();
+    }
+
+    public List<Case> getCasesSortedAndTyped() {
+        return casesSortedAndTyped;
+    }
+
+    public AI.Response nextMove() {
+        return ai.resolve(this);
     }
 
     private String format(int val) {

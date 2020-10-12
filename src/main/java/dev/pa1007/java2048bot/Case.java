@@ -2,6 +2,7 @@ package dev.pa1007.java2048bot;
 
 import java.awt.Color;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -14,19 +15,43 @@ public class Case {
      * @since 1.0
      */
     private int y;
+
+    /**
+     * case x.
+     *
+     * @since 1.0
+     */
+    private int posx;
+
+    /**
+     * case y.
+     *
+     * @since 1.0
+     */
+    private int posy;
+
     /**
      * x.
      *
      * @since 1.0
      */
-    private int x;
-
+    private int  x;
     private Type type;
 
-    public Case(int x, int y) {
+    public Case(int x, int y, int posx, int posy) {
         this.x = x;
         this.y = y;
-        type = Type.NULL;
+        this.posx = posx;
+        this.posy = posy;
+        this.type = Type.NULL;
+    }
+
+    public int getPosx() {
+        return posx;
+    }
+
+    public int getPosy() {
+        return posy;
     }
 
     public Type getType() {
@@ -73,6 +98,10 @@ public class Case {
         this.x = x;
     }
 
+    public List<Case> getNearCasesPos() {
+        return null;
+    }
+
     public static Type getType(int r, int g, int b) {
         Stream<Type> typeStream = Arrays.stream(Type.values()).filter((predicate) -> predicate.c.equals(new Color(
                 r,
@@ -83,7 +112,7 @@ public class Case {
 
         if (first.isEmpty()) {
             System.err.printf(
-                    "Error while collecting the color, rgb %s, %s, %s not found in the types %s \n",
+                    "Error while collecting the color, rgb %s, %s, %s not found in the types %s" + "\n",
                     r,
                     g,
                     b,

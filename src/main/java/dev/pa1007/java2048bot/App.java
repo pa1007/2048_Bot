@@ -23,10 +23,10 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Bot");
 
-        cases = List.of(new Case(171, 385), new Case(293, 385), new Case(418, 385), new Case(540, 385),
-                        new Case(171, 511), new Case(293, 511), new Case(418, 511), new Case(540, 511),
-                        new Case(171, 625), new Case(293, 625), new Case(418, 625), new Case(540, 625),
-                        new Case(171, 748), new Case(293, 748), new Case(418, 748), new Case(540, 748)
+        cases = List.of(new Case(171, 385,0,0), new Case(293, 385,1,0), new Case(418, 385,2,0), new Case(540, 385,3,0),
+                        new Case(171, 511,0,1), new Case(293, 511,1,1), new Case(418, 511,2,1), new Case(540, 511,3,1),
+                        new Case(171, 625,0,2), new Case(293, 625,1,2), new Case(418, 625,2,2), new Case(540, 625,3,2),
+                        new Case(171, 748,0,3), new Case(293, 748,1,3), new Case(418, 748,2,3), new Case(540, 748,3,3)
         );
 
         WebView webView = new WebView();
